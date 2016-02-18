@@ -19,7 +19,37 @@
             f_i = 0, // Индекс для финиша
             Q, // Очередь 
             route =[]; // Массив пар координат Маршрута к выходу
-        
+
+        // Конструктор очереди 
+        function Queue() {
+            this.oldestiNdex = 1;
+            this.newestiNdex = 1;
+            this.repository = {};
+        }
+        // Размер очереди 
+        Queue.prototype.size = function() {
+            return this.newestiNdex - this.oldestiNdex;
+        };
+        // Добавление новых данных в очередь 
+        Queue.prototype.enqueue = function(data) {
+            this.repository[this.newestiNdex] = data;
+            this.newestiNdex++;
+        };
+        // Удалить старые данные из очереди 
+        Queue.prototype.dequeue = function() {
+            var o_i = this.oldestiNdex,
+                n_i = this.newestiNdex,
+                deletedData;
+
+            if (o_i !== n_i) {
+                deletedData = this.repository[o_i];
+                delete this.repository[o_i];
+                this.oldestiNdex++;
+
+                return deletedData;
+            }
+        };
+
         // todo: построить правильный маршрут к выходу
         return [
             [1, 0],
