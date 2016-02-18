@@ -176,10 +176,8 @@
 
 
         // todo: построить правильный маршрут к выходу
-        return [
-            [1, 0],
-            [1, 1]
-        ];
+        route[route.length] = [start_x, start_y];
+        return route.reverse();
     }
 
     root.maze.solution = solution;
