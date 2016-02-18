@@ -110,6 +110,48 @@
 
         }
 
+        /**
+         * Функция возрата обратного пути - пока не стартовая точка, осматриваем точки вокруг и записываем с весом меньше на 1
+         */
+
+        function Backtrace(x,y){
+            var i, j;
+            do{
+                i = x;
+                j = y;
+            
+            route[route.length] = [y, x]; 
+            
+            if(CheckPoints(j,i-1, maze) && maze[i-1][j]==maze[i][j]-1 )
+            {
+                x = i-1;
+                y = j;
+            }
+            else
+                if(CheckPoints(j,i+1, maze) && maze[i+1][j]==maze[i][j]-1 )
+                {
+                    x = i+1;
+                    y = j;
+                }
+                
+                else
+                    if(CheckPoints(j-1,i, maze) && maze[i][j-1]==maze[i][j]-1 )
+                    {
+                        x = i;
+                        y = j-1;
+                    }
+                    
+                    else
+                        if(CheckPoints(j+1,i, maze) && maze[i][j+1]==maze[i][j]-1 )
+                        {
+                            x = i;
+                            y = j+1;
+                        }
+            }
+            while(i!==start_y && j!==start_x)
+        }
+
+
         // todo: построить правильный маршрут к выходу
         return [
             [1, 0],
