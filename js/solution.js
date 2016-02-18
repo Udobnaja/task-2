@@ -161,6 +161,19 @@
             } 
         }
 
+        /* Если точка(и) финиша существуют(ет) - ищем маршрут, если нет - выдаем системное сообщение */
+        if (finish.length){
+            Q = new Queue(); // Создаем пустую очередь
+            MarkNeighbors(Q); // Помечаем точки
+            SearchLowestWeight(finish, maze); // Ищем точку финиша с самым маленьким весом 
+            if(maze[finish.y][finish.x]!==0){
+                Backtrace(finish.y,finish.x); // Восстановление пути
+            } else alert('Путь не найден');
+               
+        } else {
+            alert('У лабиринта нет выхода. Don\'t starve');
+        }
+
 
         // todo: построить правильный маршрут к выходу
         return [
