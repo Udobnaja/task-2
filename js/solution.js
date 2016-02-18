@@ -14,11 +14,13 @@
      */
     function solution(maze, x, y) {
         var finish = [], // Массив с точками финиша
-            start_x = x, // Старт по оси x
-            start_y = y, // Старт по оси y
+            start_x = x, // Старт по оси X
+            start_y = y, // Старт по оси Y
             f_i = 0, // Индекс для финиша
             Q, // Очередь 
-            route =[]; // Массив пар координат Маршрута к выходу
+            route =[], // Массив пар координат Маршрута к выходу
+            arr_x = [1,0,-1,0], // Смещение координаты x
+            arr_y = [0,1,0,-1]; // Смещение координаты y
 
         // Конструктор очереди 
         function Queue() {
@@ -72,22 +74,13 @@
                 y = obj[q.oldestiNdex].i;
                 x = obj[q.oldestiNdex].j;
 
-                if(CheckPoints(x+1,y,maze) && (maze[y][x+1] === 0) && !((x+1===start_x) && (y === start_y))){
-                        maze[y][x+1] = maze[y][x] + 1;
-                        q.enqueue({i :y, j:x+1});
-                }
-                if(CheckPoints(x,y+1,maze) && (maze[y+1][x] === 0) && !((x===start_x) && (y+1 === start_y))){
-                        maze[y+1][x] = maze[y][x] + 1;
-                        q.enqueue({i :y+1, j:x});
-                }
-                if(CheckPoints(x-1,y,maze) && (maze[y][x-1] === 0) && !((x-1===start_x) && (y === start_y))){
-                        maze[y][x-1] = maze[y][x] + 1;
-                        q.enqueue({i :y, j:x-1});
-                }
-                if(CheckPoints(x,y-1,maze) && (maze[y-1][x] === 0) && !((x===start_x) && (y-1 === start_y)) ){         
-                        maze[y-1][x] = maze[y][x] + 1;
-                        q.enqueue({i :y-1, j:x});
-                }
+                // Движение по соседним точкам
+                for (var k = 0; k < 4; k++) {
+                    if(CheckPoints(x+arr_x[k],y+arr_y[k],maze) && (maze[y+arr_y[k]][x+arr_x[k]] === 0) && !((x+arr_x[k]===start_x) && (y+arr_y[k] === start_y))){
+                        maze[y+arr_y[k]][x+arr_x[k]] = maze[y][x] + 1;
+                        q.enqueue({i :y+arr_y[k], j:x+arr_x[k]});
+                    }
+                };
 
                 q.dequeue();
             }
