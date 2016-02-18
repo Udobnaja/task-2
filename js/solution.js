@@ -151,6 +151,16 @@
             while(i!==start_y && j!==start_x)
         }
 
+        for (var i = 0; i < maze.length; i++) {        
+            for (var j = 0; j < maze[i].length; j++) {
+                /*Поиск выхода: Должен быть не стеной и удовлетворять условию y=M*/
+                if ( (maze[i][j]===0) && (i === maze.length-1)) {
+                    finish[f_i] = {x: j, y: i};
+                    f_i++;
+                }   
+            } 
+        }
+
 
         // todo: построить правильный маршрут к выходу
         return [
