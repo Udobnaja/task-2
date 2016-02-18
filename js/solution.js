@@ -93,6 +93,23 @@
             }
         }
 
+        /**
+         * Функция берет точки(у) лабиринта и выбирает с наименьшим весом
+         */
+
+        function SearchLowestWeight(data, maze){
+            var size = maze[data[0].y][data[0].x];
+            for (var i = 0; i < data.length; i++) {
+                if(maze[data[i].y][data[i].x]<=size){
+                    size = maze[data[i].y][data[i].x];
+                    finish.x = data[i].x;
+                    finish.y = data[i].y;
+                }
+               delete data[i]; 
+            };
+
+        }
+
         // todo: построить правильный маршрут к выходу
         return [
             [1, 0],
