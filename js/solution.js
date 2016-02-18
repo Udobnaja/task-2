@@ -50,6 +50,14 @@
             }
         };
 
+        /**
+         * Функция проверяет не выходит ли точка за границы лабиринта
+         */
+
+        CheckPoints = function (j, i, arr) {
+            return (i>=0 && j>=0 && i<arr.length && j<arr[0].length ) ? true : false;
+        }
+
         // todo: построить правильный маршрут к выходу
         return [
             [1, 0],
