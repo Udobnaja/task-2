@@ -24,29 +24,29 @@
 
         // Конструктор очереди 
         function Queue() {
-            this.oldestiNdex = 1;
-            this.newestiNdex = 1;
+            this.oldestIndex = 1;
+            this.newestIndex = 1;
             this.repository = {};
         }
         // Размер очереди 
         Queue.prototype.size = function() {
-            return this.newestiNdex - this.oldestiNdex;
+            return this.newestIndex - this.oldestIndex;
         };
         // Добавление новых данных в очередь 
         Queue.prototype.enqueue = function(data) {
-            this.repository[this.newestiNdex] = data;
-            this.newestiNdex++;
+            this.repository[this.newestIndex] = data;
+            this.newestIndex++;
         };
         // Удалить старые данные из очереди 
         Queue.prototype.dequeue = function() {
-            var o_i = this.oldestiNdex,
-                n_i = this.newestiNdex,
+            var o_i = this.oldestIndex,
+                n_i = this.newestIndex,
                 deletedData;
 
             if (o_i !== n_i) {
                 deletedData = this.repository[o_i];
                 delete this.repository[o_i];
-                this.oldestiNdex++;
+                this.oldestIndex++;
 
                 return deletedData;
             }
@@ -71,8 +71,8 @@
             var obj, y, x
             while (q.size()!=0){
                 obj = q.repository;
-                y = obj[q.oldestiNdex].i;
-                x = obj[q.oldestiNdex].j;
+                y = obj[q.oldestIndex].i;
+                x = obj[q.oldestIndex].j;
 
                 // Движение по соседним точкам
                 for (var k = 0; k < 4; k++) {
