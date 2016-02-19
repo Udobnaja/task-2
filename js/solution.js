@@ -144,14 +144,12 @@
             while(i!==start_y && j!==start_x)
         }
 
-        for (var i = 0; i < maze.length; i++) {        
-            for (var j = 0; j < maze[i].length; j++) {
-                /*Поиск выхода: Должен быть не стеной и удовлетворять условию y=M*/
-                if ( (maze[i][j]===0) && (i === maze.length-1)) {
-                    finish[f_i] = {x: j, y: i};
-                    f_i++;
-                }   
-            } 
+        for (var i = 0; i < maze[maze.length-1].length; i++) {              
+            /*Поиск выхода: Должен быть не стеной и удовлетворять условию y=M*/
+            if (maze[maze.length-1][i]===0) {
+                finish[f_i] = {x: i, y: maze.length-1};
+                f_i++;
+            }   
         }
 
         /* Если точка(и) финиша существуют(ет) - ищем маршрут, если нет - выдаем системное сообщение */
