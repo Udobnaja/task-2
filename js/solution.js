@@ -112,36 +112,18 @@
             do{
                 i = x;
                 j = y;
-            
-            route[route.length] = [y, x]; 
-            
-            if(CheckPoints(j,i-1, maze) && maze[i-1][j]==maze[i][j]-1 )
-            {
-                x = i-1;
-                y = j;
-            }
-            else
-                if(CheckPoints(j,i+1, maze) && maze[i+1][j]==maze[i][j]-1 )
-                {
-                    x = i+1;
-                    y = j;
-                }
                 
-                else
-                    if(CheckPoints(j-1,i, maze) && maze[i][j-1]==maze[i][j]-1 )
+                route[route.length] = [y, x]; 
+                
+                for (var k = 0; k < 4; k++) {
+                    if(CheckPoints(j+arr_y[k],i+arr_x[k], maze) && maze[i+arr_x[k]][j+arr_y[k]]==maze[i][j]-1 )
                     {
-                        x = i;
-                        y = j-1;
+                        x = i+arr_x[k];
+                        y = j+arr_y[k];
                     }
-                    
-                    else
-                        if(CheckPoints(j+1,i, maze) && maze[i][j+1]==maze[i][j]-1 )
-                        {
-                            x = i;
-                            y = j+1;
-                        }
+                };
             }
-            while(i!==start_y && j!==start_x)
+            while(i!==start_y || j!==start_x)
         }
 
         for (var i = 0; i < maze[maze.length-1].length; i++) {              
