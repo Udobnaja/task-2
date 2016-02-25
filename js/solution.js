@@ -6,22 +6,22 @@
         shiftX = [1,0,-1,0], // Смещение координаты x
         shiftY = [0,1,0,-1]; // Смещение координаты y
 
-     // Конструктор очереди 
+    // Конструктор очереди
     function Queue() {
         this.oldestIndex = 1;
         this.newestIndex = 1;
         this.repository = {};
     }
-    // Размер очереди 
+    // Размер очереди
     Queue.prototype.size = function() {
         return this.newestIndex - this.oldestIndex;
     };
-    // Добавление новых данных в очередь 
+    // Добавление новых данных в очередь
     Queue.prototype.enqueue = function(data) {
         this.repository[this.newestIndex] = data;
         this.newestIndex++;
     };
-    // Удалить старые данные из очереди 
+    // Удалить старые данные из очереди
     Queue.prototype.dequeue = function() {
         var oldest = this.oldestIndex,
             newest = this.newestIndex,
@@ -65,14 +65,14 @@
     function MarkNeighbors(q, maze, startY, startX){
         q = new Queue(); // Создаем пустую очередь
         q.enqueue({i : startY, j : startX}); // Помешаем в очередь стартовую точку
-        var obj, y, x;
+        var obj, y, x, k;
         while (q.size()!=0){
             obj = q.repository;
             y = obj[q.oldestIndex].i;
             x = obj[q.oldestIndex].j;
 
             // Движение по соседним точкам
-            for (var k = 0; k < 4; k++) { 
+            for (var k = 0; k < 4; k++) {
                 if(CheckPoints(x+shiftX[k],y+shiftY[k],maze) && (maze[y+shiftY[k]][x+shiftX[k]] === 0) && !((x+shiftX[k]===startX) && (y+shiftY[k] === startY))){
                     maze[y+shiftY[k]][x+shiftX[k]] = maze[y][x] + 1;
                     q.enqueue({i :y+shiftY[k], j:x+shiftX[k]});
@@ -96,7 +96,7 @@
                 finishData.x = finishData[i].x;
                 finishData.y = finishData[i].y;
             }
-           delete finishData[i]; 
+           delete finishData[i];
         };
         return finishData;
 
@@ -111,9 +111,9 @@
         do{
             i = x;
             j = y;
-            
-            route[route.length] = [y, x]; 
-            
+
+            route[route.length] = [y, x];
+
             for (var k = 0; k < 4; k++) {
                 if(CheckPoints(j+shiftY[k],i+shiftX[k], maze) && maze[i+shiftX[k]][j+shiftY[k]]==maze[i][j]-1 )
                 {
@@ -137,26 +137,26 @@
     function solution(maze, x, y) {
         var finish = [], // Массив с точками финиша
             index = 0, // Индекс для финиша
-            Q, // Очередь 
+            Q, // Очередь
             route =[], // Массив пар координат Маршрута к выходу
             clonedMaze = cloneMaze(maze);
 
-        for (var i = 0; i < clonedMaze[clonedMaze.length-1].length; i++) {              
+        for (var i = 0; i < clonedMaze[clonedMaze.length-1].length; i++) {
             /*Поиск выхода: Должен быть не стеной и удовлетворять условию y=M*/
             if (clonedMaze[clonedMaze.length-1][i]===0) {
                 finish[index] = {x: i, y: clonedMaze.length-1};
                 index++;
-            }   
+            }
         }
 
         /* Если точка(и) финиша существуют(ет) - ищем маршрут, если нет - выдаем системное сообщение */
-        if (finish.length){ 
+        if (finish.length){
             MarkNeighbors(Q, clonedMaze, y, x); // Помечаем точки
-            SearchLowestWeight(finish, clonedMaze); // Ищем точку финиша с самым маленьким весом 
+            SearchLowestWeight(finish, clonedMaze); // Ищем точку финиша с самым маленьким весом
             if(clonedMaze[finish.y][finish.x]!==0){
                 Backtrace(finish.y, finish.x, route, clonedMaze, y, x); // Восстановление пути
             } else alert('Путь не найден');
-               
+
         } else {
             alert('У лабиринта нет выхода. Don\'t starve');
         }
