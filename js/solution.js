@@ -88,17 +88,17 @@
      * Функция берет точки(у) лабиринта и выбирает с наименьшим весом
      */
 
-    function SearchLowestWeight(data, maze, finish){
-        var size = maze[data[0].y][data[0].x];
-        for (var i = 0; i < data.length; i++) {
-            if(maze[data[i].y][data[i].x]<=size){
-                size = maze[data[i].y][data[i].x];
-                finish.x = data[i].x;
-                finish.y = data[i].y;
+    function SearchLowestWeight(finishData, maze){
+        var size = maze[finishData[0].y][finishData[0].x];
+        for (var i = 0; i < finishData.length; i++) {
+            if(maze[finishData[i].y][finishData[i].x]<=size){
+                size = maze[finishData[i].y][finishData[i].x];
+                finishData.x = finishData[i].x;
+                finishData.y = finishData[i].y;
             }
-           delete data[i]; 
+           delete finishData[i]; 
         };
-        return finish;
+        return finishData;
 
     }
 
@@ -152,7 +152,7 @@
         /* Если точка(и) финиша существуют(ет) - ищем маршрут, если нет - выдаем системное сообщение */
         if (finish.length){ 
             MarkNeighbors(Q, clonedMaze, y, x); // Помечаем точки
-            SearchLowestWeight(finish, clonedMaze, finish); // Ищем точку финиша с самым маленьким весом 
+            SearchLowestWeight(finish, clonedMaze); // Ищем точку финиша с самым маленьким весом 
             if(clonedMaze[finish.y][finish.x]!==0){
                 Backtrace(finish.y, finish.x, route, clonedMaze, y, x); // Восстановление пути
             } else alert('Путь не найден');
