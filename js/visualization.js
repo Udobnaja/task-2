@@ -38,6 +38,5 @@
 		var WaveTimer = setInterval(DrawWaveExpansion, 10);
 				
 	}
-	console.log(visualization);
     root.maze.visualization = visualization;
 })(this);
