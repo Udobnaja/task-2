@@ -24,18 +24,8 @@
      * @param {[number, number][]} [path] маршрут
      * @returns {HTMLElement} HTML элемент
      */
-    function render(maze, path) {
-        if (path && path.length) {
-            var point, 
-                i;
-
-            for (i = 0; i < path.length; i++) {
-                point = path[i];
-                maze[point[1]][point[0]] = PATH;
-            }
-            point = path[path.length - 1];
-            maze[point[1]][point[0]] = CURRENT;
-        }
+    function render(maze) {
+        
 
         var containerElem = element('div', 'maze'),
             rowElem,
@@ -57,13 +47,13 @@
                         type = 'wall';
                         break;
 
-                    case PATH:
-                        type = 'path';
-                        break;
+//                    case PATH:
+//                        type = 'path';
+//                        break;
 
-                    case CURRENT:
-                        type = 'current';
-                        break;
+//                    case CURRENT:
+//                        type = 'current';
+//                        break;
 
                     default:
                         type = undefined;

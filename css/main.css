@@ -11,14 +11,22 @@ body {
 .maze__row {
     padding: 0;
     margin: 0;
-    font-size: 0;
+    font-size: 9px;
+    text-align: center;
     white-space: nowrap;
 }
 
+.maze__row:after,
+.maze__row:before{
+    content: '';
+    display: table;
+    clear: both;
+}
+
 .maze__cell {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
+    float: left;
+    width: 13px;  /*помещались трехзначные цифры*/
+    height: 13px;
     padding: 0;
     margin-right: 1px;
     margin-bottom: 1px;
